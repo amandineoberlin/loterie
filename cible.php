@@ -1,50 +1,48 @@
 <?php
 $name = isset($_POST['name']) ? $_POST['name'] : '';
-$nameArray = ["Amandine", "Cédric", "Juline", "Laurine", "Jean-Baptise"];
+$nameArray = ["Amandine", "Cedric", "Juline", "Laurine", "Jean-Baptiste"];
 $json = file_get_contents ('file.json');
 $array = json_decode($json);
+$resultatTirage = '';
 
-if ($array->$name) {
-  echo 'Tu as déjà joué petit coquin. Tu dois offrir un cadeau à: '. $array->$name;
-} else {
-  //list of already chosen names
-  $alreadyChosen = array_values(get_object_vars($array));
+if ($name) {
+  
+  if ($array->$name) {
 
-  //Remove current user from array so that he doesnt choose himself and already chosen names from array
-  foreach ($alreadyChosen as $key => $value) {
-    if ($value) {
-      unset($nameArray[$key]);
+    //If user already played, send resultname in array instead of string
+    $data['resultat'] = array(
+      0 => $array->$name
+    );
+
+  } else {
+
+    //list of already chosen names
+    $alreadyChosen = array_values(get_object_vars($array));
+    //Remove already chosen names from array
+    foreach ($alreadyChosen as $key => $value) {
+      if ($value) {
+        unset($nameArray[$key]);
+      }
+    };
+    //Remove current user from array so that he doesnt choose himself and already chosen names from array
+    foreach ($nameArray as $key2 => $value2) {
+      if ($value2 == $name) {
+        unset($nameArray[$key2]);
+      }
     }
+
+    $resultatTirage = $nameArray[array_rand($nameArray, 1)];
+    $array->$name = $resultatTirage;
+    file_put_contents("file.json", json_encode($array));
+    $data['resultat'] = $resultatTirage;
   };
-  foreach ($nameArray as $key2 => $value2) {
-    if ($value2 == $name) {
-      unset($nameArray[$key2]);
-    }
-  }
-var_dump($nameArray);
 
-  // $rand_keys = array_rand($nameArray, 1);
-  // echo $nameArray[$rand_keys];
-};
+  $data['file'] = json_decode(file_get_contents ('file.json'));
+  echo json_encode($data);
 
-
-// foreach ($array as $key => $value) {
-//
-//   if ($key == $select) {
-//   }
-// }
-
-
-
-// echo '{
-//   "current": {
-//     "current1": 1,
-//     "current2": 2
-//   },
-//   "old": {
-//     "old1": 11,
-//     "old2": 22
-//   }
-// }';
+//just to show file on init
+} else {
+  echo $json;
+}
 
 ?>

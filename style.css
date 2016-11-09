@@ -1,3 +1,8 @@
 #panneau {
   display: none;
 }
+
+#resultat {
+  display: none;
+  background-color: yellow;
+}
