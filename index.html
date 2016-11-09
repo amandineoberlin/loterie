@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html class="full" ng-app="myApp" ng-controller="indexCtrl">
+
+<head>
+  <meta name="description" content="WhiteAyrad">
+  <meta name="author" content="AmandineOberlin">
+  <title>White Ayrad</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+	<body>
+    <div class="container-fluid">
+      <div class="jumbotron">
+      <h1>Grand tirage au sort de Noël!</h1>
+      <p>Sélectionne ton prénom et joue! Un seul essai accepté</p>
+      </div>
+      <div class="row">
+        <form>
+        <div class="col-md-5">
+          <label for="select">Quel est ton prénom? :</label>
+          <select name="select" class="form-control" id="select">
+            <option>...</option>
+            <option value="Amandine">Amandine</option>
+            <option selected value="Cédric">Cédric</option>
+            <option value="Juline">Juline</option>
+            <option value="Laurine">Laurine</option>
+            <option value="Jean-Baptiste">Jean-Baptiste</option>
+          </select></br>
+          <input type="submit" class="btn btn-primary btn-block" id="bouton" value="Valider "></input>
+        </div>
+        </form>
+
+
+        <div class="col-md-1">
+        </div>
+
+        <div class="col-md-6" id="panneau">
+        <div class="panel panel-default">
+          <div class="panel-heading"><h4 class="display-3">Résultats: </h4></div>
+          <div class="panel-body">
+            <h5>Ton nom est: <mark class="display-2" id="prenom"></mark></h5>
+            </br>
+            <h5>Tu as tiré au sort: </h5>
+            <h2><mark class="display-1" id="resultat"></mark></h2>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="well" id="tableau"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
