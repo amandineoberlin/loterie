@@ -6,7 +6,7 @@ $array = json_decode($json);
 $resultatTirage = '';
 
 if ($name) {
-  
+
   if ($array->$name) {
 
     //If user already played, send resultname in array instead of string
@@ -17,14 +17,19 @@ if ($name) {
   } else {
 
     //list of already chosen names
-    $alreadyChosen = array_values(get_object_vars($array));
+    foreach($array as $key) {
+      $output_arr[] = $key;
+    };
+
     //Remove already chosen names from array
-    foreach ($alreadyChosen as $key => $value) {
+    foreach ($output_arr as $key => $value) {
       if ($value) {
-        unset($nameArray[$key]);
+        $myKey = array_search($value, $nameArray);
+        unset($nameArray[$myKey]);
       }
     };
-    //Remove current user from array so that he doesnt choose himself and already chosen names from array
+
+    //Remove current user from array so that he doesnt choose himself from array
     foreach ($nameArray as $key2 => $value2) {
       if ($value2 == $name) {
         unset($nameArray[$key2]);

@@ -1,3 +1,4 @@
+//get value of each property
 var getCurrentTable = function(result) {
   var count = 0;
   $.each(result, function(k, v) {
@@ -7,7 +8,6 @@ var getCurrentTable = function(result) {
 };
 
 $(document).ready(function(){
-
   $.ajax({
     type: "POST",
     url: "cible.php",
@@ -17,6 +17,15 @@ $(document).ready(function(){
         $('#tableau').html('<h3>' + getCurrentTable(result) + ' participant(s) sur 5 validé(s)' + '</h3>'
         + '</h6>La liste des résultats sera visible lorsque tout le monde aura joué</h6>');
       };
+      if (getCurrentTable(result) === 5) {
+        $("#bouton").attr("disabled", true);
+        tbl_row = '<table class="table"><tr><th>Nom</th><th>offre à : </th></tr>';
+          $.each(result, function(k, v) {
+            tbl_row += '<tr><td>' + k + '</td><td>' + v + '</td></tr>'
+          });
+        tbl_row += '</table>';
+        $('#tableau').replaceWith(tbl_row);
+        }
     }
   });
 
@@ -35,13 +44,13 @@ $(document).ready(function(){
           type: "POST",
           url: "cible.php",
           data: 'name='+ $( "#select" ).val(),
-          success: function(result){ console.log(result);
+          success: function(result){
             result = JSON.parse(result);
             $('#resultat').css({ display: 'block'});
             //result is array which means user already played
             if ($.isArray(result.resultat)) {
               $('#resultat').html('');
-              $('#resultat').html('Tu as déjà joué! Tu as tiré au sort ' + result.resultat);
+              $('#resultat').html('Tu as tiré au sort ' + result.resultat);
             } else {
               $('#resultat').html('');
               $('#resultat').html('Tu as tiré au sort : ' + result.resultat);
