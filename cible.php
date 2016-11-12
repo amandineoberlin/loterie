@@ -8,7 +8,6 @@ $resultatTirage = '';
 if ($name) {
 
   if ($array->$name) {
-
     //If user already played, send resultname in array instead of string
     $data['resultat'] = array(
       0 => $array->$name
